@@ -22,5 +22,6 @@ public class ApplicationRunner {
     System.out.println("La poblacion nacional de Colombia es: "+academicRecordService.PoblacionColombia());
     System.out.println();
     System.out.println("El consumo de agua potable a nivel Colombia es: "+(academicRecordService.ConsumoAguaColombia()));
+    System.out.println();
   }
 }
