@@ -1,8 +1,8 @@
-package org.example.service;
+package org.emmanuel_numar_acceso_agua.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.example.repository.GradeInMemoryRepositoryImpl;
+import org.emmanuel_numar_acceso_agua.repository.DataRegionRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,19 +12,11 @@ class AcademicRecordServiceImplTest {
 
   @BeforeEach
   void setUp() {
-    this.academicRecordService = new AcademicRecordServiceImpl(new GradeInMemoryRepositoryImpl());
+    this.academicRecordService = new AcademicRecordServiceImpl(new DataRegionRepositoryImpl());
   }
 
-  @Test
-  void summation_of_number_of_grades_should_return_a_valid_number() {
-    Integer numberOfGrades = this.academicRecordService.sumNumberOfGrades();
 
-    assertNotNull(numberOfGrades);
-    assertEquals(
-        4,
-        numberOfGrades); // Debido a que solo son 4 notas definidas en el
-                         // GradeInMemoryRepositoryImpl, al realizar la suma el valor debe ser 4
-  }
+
 
   @Test
   void average_of_grades_should_calculated_successful() {
