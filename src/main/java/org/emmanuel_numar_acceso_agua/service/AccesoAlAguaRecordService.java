@@ -1,7 +1,7 @@
 package org.emmanuel_numar_acceso_agua.service;
 
 public interface AccesoAlAguaRecordService {
-  String MostrarNombreRegion();
+  void MostrarNombreRegion();
   Integer PoblacionColombia();
   double ConsumoAguaColombia();
   double HallarPromConsPersonaNacional();

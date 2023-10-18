@@ -18,12 +18,11 @@ public class AccesoAlAguaRecordServiceImpl implements AccesoAlAguaRecordService 
     }
 
     @Override
-    public String MostrarNombreRegion() {
+    public void MostrarNombreRegion() {
         List<DataRegion> data = this.dataRegionRepository.findAllGrades();
         for (var DataRegion : data ) {
             System.out.println(DataRegion.nombreRegion());
         }
-        return null;
     }
     public Integer PoblacionColombia(){
         List<DataRegion> data = this.dataRegionRepository.findAllGrades();
