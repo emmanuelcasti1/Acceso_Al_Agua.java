@@ -2,7 +2,7 @@ package org.emmanuel_numar_acceso_agua.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.emmanuel_numar_acceso_agua.repository.DataRegionRepositoryImpl;
+import org.emmanuel_numar_acceso_agua.repository.consumoXRegionRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,14 +12,14 @@ class AccesoAlAguaRecordServiceImplTest {
 
   @BeforeEach
   void setUp() {
-    this.accesoAlAguaRecordService = new AccesoAlAguaRecordServiceImpl(new DataRegionRepositoryImpl());
+    this.accesoAlAguaRecordService = new AccesoAlAguaRecordServiceImpl(new consumoXRegionRepositoryImpl());
   }
 
 
 
   @Test
   void poblacionColombia() {
-    Integer poblacion = this.accesoAlAguaRecordService.PoblacionColombia();
+    Integer poblacion = this.accesoAlAguaRecordService.poblacionColombia();
 
     assertNotNull(poblacion); // Se verifica que la poblacion no sea nulo
     assertEquals(52712323, poblacion); // Se verifica que la poblacion sea  = 52712323
@@ -38,7 +38,7 @@ class AccesoAlAguaRecordServiceImplTest {
       * Para hallar el consumo lo unico que deberia
        hacer el método es sumar los diferentes consumos nacionales.
      * */
-    Double consumo = this.accesoAlAguaRecordService.ConsumoAguaColombia();
+    Double consumo = this.accesoAlAguaRecordService.consumoAguaColombia();
 
     assertNotNull(consumo); // Se verifica que el consumo no sea nulo
     assertEquals(2.215006E8, consumo); // Se verifica que la suma sea (consumo) = 2.215006E8
@@ -46,7 +46,7 @@ class AccesoAlAguaRecordServiceImplTest {
 
   @Test
   void hallarPromConsPersonaNacional() {
-    Double promedio = this.accesoAlAguaRecordService.HallarPromConsPersonaNacional();
+    Double promedio = this.accesoAlAguaRecordService.hallarPromConsPersonaNacional();
 
     assertNotNull(promedio); // Se verifica que el consumo promedio no sea nulo
     assertEquals(4.202064856826742, promedio); // Se verifica que el promedio sea igual a  = 4.202064856826742
@@ -54,7 +54,7 @@ class AccesoAlAguaRecordServiceImplTest {
 
   @Test
   void hallarRegionConMenorAccesoAlAgua() {
-    String menorAcceso = this.accesoAlAguaRecordService.HallarRegionConMenorAccesoAlAgua();
+    String menorAcceso = this.accesoAlAguaRecordService.hallarRegionConMenorAccesoAlAgua();
 
     assertNotNull(menorAcceso); // Se verifica que el menorAcceso no sea nulo
     assertEquals("Insular",menorAcceso); // Se verifica que la region con menor acceso sea = "insular"
@@ -62,7 +62,7 @@ class AccesoAlAguaRecordServiceImplTest {
 
   @Test
   void hallarRegionConMenorConsuXPersona() {
-    String consumo = this.accesoAlAguaRecordService.HallarRegionConMenorConsuXPersona();
+    String consumo = this.accesoAlAguaRecordService.hallarRegionConMenorConsuXPersona();
 
     assertNotNull(consumo); // Se verifica que el consumo no sea nulo
     assertEquals("Caribe", consumo); // Se verifica que la region con menor consumo sea = "Caribe"
@@ -70,7 +70,7 @@ class AccesoAlAguaRecordServiceImplTest {
 
   @Test
   void hallarRegionConMayorConsuXPersona() {
-    String consumo = this.accesoAlAguaRecordService.HallarRegionConMayorConsuXPersona();
+    String consumo = this.accesoAlAguaRecordService.hallarRegionConMayorConsuXPersona();
 
     assertNotNull(consumo); // Se verifica que el consumo no sea nulo
     assertEquals("Orinoquía", consumo); // Se verifica que la region con menor consumo sea = "Orinoquía

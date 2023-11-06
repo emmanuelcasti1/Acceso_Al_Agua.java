@@ -1,6 +1,6 @@
 package org.emmanuel_numar_acceso_agua;
 
-import org.emmanuel_numar_acceso_agua.repository.DataRegionRepositoryImpl;
+import org.emmanuel_numar_acceso_agua.repository.consumoXRegionRepositoryImpl;
 import org.emmanuel_numar_acceso_agua.service.AccesoAlAguaRecordService;
 import org.emmanuel_numar_acceso_agua.service.AccesoAlAguaRecordServiceImpl;
 
@@ -8,24 +8,23 @@ public class ApplicationRunner {
   public static void main(String[] args) {
 
     AccesoAlAguaRecordService accesoAlAguaRecordService =
-        new AccesoAlAguaRecordServiceImpl(new DataRegionRepositoryImpl());
+        new AccesoAlAguaRecordServiceImpl(new consumoXRegionRepositoryImpl());
 
     System.out.println("Las regiones de Colombia Son: ");
-    accesoAlAguaRecordService.MostrarNombreRegion();
+    accesoAlAguaRecordService.mostrarNombreRegion();
     System.out.println();
-    System.out.println("La poblacion nacional de Colombia es: "+ accesoAlAguaRecordService.PoblacionColombia());
-    System.out.println();
-    System.out.println("El consumo de agua potable a nivel Colombia es: "+ accesoAlAguaRecordService.ConsumoAguaColombia()+" Lts");
-    System.out.println();
-    System.out.println("El consumo promedio de agua nacional por individuo es: "+ accesoAlAguaRecordService.HallarPromConsPersonaNacional()+" lts");
-    System.out.println();
-    System.out.println("La región con menos acceso al agua potable es: "+ accesoAlAguaRecordService.HallarRegionConMenorAccesoAlAgua());
+    System.out.println("\nLa población nacional de Colombia es: "+ accesoAlAguaRecordService.poblacionColombia());
+
+    System.out.println("\nEl consumo de agua potable a nivel Colombia es: "+ accesoAlAguaRecordService.consumoAguaColombia()+" Lts");
+
+    System.out.println("\nEl consumo promedio de agua nacional por individuo es: "+ accesoAlAguaRecordService.hallarPromConsPersonaNacional()+" lts");
+
+    System.out.println("\nLa región con menos acceso al agua potable es: "+ accesoAlAguaRecordService.hallarRegionConMenorAccesoAlAgua());
+
     System.out.println("\nEl consumo regional por persona es: ");
-    System.out.println();
-    accesoAlAguaRecordService.HallarConsumoPersonaXRegion();
-    System.out.println("La region que menos agua potable consume por persona es: "+ accesoAlAguaRecordService.HallarRegionConMenorConsuXPersona());
-    System.out.println();
-    System.out.println("La region que mas agua potable consume por persona es: "+ accesoAlAguaRecordService.HallarRegionConMayorConsuXPersona());
-    System.out.println("\tProfe, no usamos logger para mostrar mensajes porque a nuestro concepto se veia feo a la hora de imprimir. ");
+    accesoAlAguaRecordService.hallarConsumoPersonaXRegion();
+    System.out.println("\nLa región que menos agua potable consume por persona es: "+ accesoAlAguaRecordService.hallarRegionConMenorConsuXPersona());
+
+    System.out.println("\nLa región que mas agua potable consume por persona es: "+ accesoAlAguaRecordService.hallarRegionConMayorConsuXPersona());
   }
 }

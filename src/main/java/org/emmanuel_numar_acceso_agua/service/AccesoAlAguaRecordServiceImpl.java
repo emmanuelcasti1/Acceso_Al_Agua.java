@@ -1,8 +1,8 @@
 package org.emmanuel_numar_acceso_agua.service;
 
 import java.util.List;
-import org.emmanuel_numar_acceso_agua.model.DataRegion;
-import org.emmanuel_numar_acceso_agua.repository.DataRegionRepository;
+import org.emmanuel_numar_acceso_agua.model.consumoXRegion;
+import org.emmanuel_numar_acceso_agua.repository.consumoXRegionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,96 +11,95 @@ import org.slf4j.LoggerFactory;
 public class AccesoAlAguaRecordServiceImpl implements AccesoAlAguaRecordService {
 
     private static final Logger logger = LoggerFactory.getLogger(AccesoAlAguaRecordServiceImpl.class);
-    private final DataRegionRepository dataRegionRepository;
+    private final consumoXRegionRepository consumoXRegionRepository;
 
-    public AccesoAlAguaRecordServiceImpl(DataRegionRepository dataRegionRepository) {
-        this.dataRegionRepository = dataRegionRepository;
+    public AccesoAlAguaRecordServiceImpl(consumoXRegionRepository consumoXRegionRepository) {
+        this.consumoXRegionRepository = consumoXRegionRepository;
     }
 
     @Override
-    public void MostrarNombreRegion() {
-        List<DataRegion> data = this.dataRegionRepository.findAllGrades();
-        for (var DataRegion : data ) {
-            System.out.println(DataRegion.nombreRegion());
+    public void mostrarNombreRegion() {
+        List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
+        for (var consumoXRegion : consumoXRegionList ) {
+            System.out.println(consumoXRegion.nombre());
         }
     }
-    public Integer PoblacionColombia(){
-        List<DataRegion> data = this.dataRegionRepository.findAllGrades();
+    public int poblacionColombia(){
+        List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
         int sumaPoblacion = 0;
-        for (var DataRegion : data){
-            sumaPoblacion += DataRegion.poblacionRegion();
+        for (var consumoXRegion : consumoXRegionList){
+            sumaPoblacion += consumoXRegion.poblacion();
         }
-    return sumaPoblacion;
+        return sumaPoblacion;
     }
 
-    public double ConsumoAguaColombia()
+    public double consumoAguaColombia()
     {
-        List<DataRegion> data = this.dataRegionRepository.findAllGrades();
+        List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
         double sumaConsumo = 0;
-        for (var DataRegion : data){
-            sumaConsumo += DataRegion.consumoXRegion();
+        for (var consumoXRegion : consumoXRegionList){
+            sumaConsumo += consumoXRegion.consumo();
         }
         return sumaConsumo;
     }
 
-    public double HallarPromConsPersonaNacional()
-    {
+    public double hallarPromConsPersonaNacional() {
         double promedioPersona;
-        promedioPersona = ConsumoAguaColombia()/PoblacionColombia();
+        promedioPersona = consumoAguaColombia()/poblacionColombia();
 
         return promedioPersona;
     }
 
-    public String HallarRegionConMenorAccesoAlAgua()
+    public String hallarRegionConMenorAccesoAlAgua()
     {
-        List<DataRegion> data = this.dataRegionRepository.findAllGrades();
+        List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
         double aux = 999999999;
         String menosAcceso = "";
-        for (var DataRegion : data ) {
-            if (DataRegion.consumoXRegion() < aux){
-                aux = DataRegion.consumoXRegion();
-                menosAcceso = DataRegion.nombreRegion();
+        for (var consumoXRegion : consumoXRegionList ) {
+            if (consumoXRegion.consumo() < aux){
+                aux = consumoXRegion.consumo();
+                menosAcceso = consumoXRegion.nombre();
             }
         }
         return menosAcceso;
     }
 
-    public void HallarConsumoPersonaXRegion()
+    public void hallarConsumoPersonaXRegion()
     {
-        List<DataRegion> data = this.dataRegionRepository.findAllGrades();
+        List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
         float consumoXPersona;
-        for (var DataRegion : data) {
-            consumoXPersona = DataRegion.consumoXRegion() / DataRegion.poblacionRegion();
-            System.out.println("En la region " + DataRegion.nombreRegion() + " se consume: " + consumoXPersona + " Lt por persona.");
+        for (var consumoXRegion : consumoXRegionList) {
+            consumoXPersona = consumoXRegion.consumo() / consumoXRegion.poblacion();
+            System.out.println("En la region " + consumoXRegion.nombre() + " se consume: " + consumoXPersona + " Lt por persona.");
             System.out.println();
         }
     }
 
-    public String HallarRegionConMenorConsuXPersona()
+    public String hallarRegionConMenorConsuXPersona()
     {
-        List<DataRegion> data = this.dataRegionRepository.findAllGrades();
+        List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
         float consumoXPersona, menorConsumo = 999999999;
         String menorconsuRegion = "";
-        for (var DataRegion : data) {
-            consumoXPersona = DataRegion.consumoXRegion() / DataRegion.poblacionRegion();
+        for (var consumoXRegion : consumoXRegionList) {
+            consumoXPersona = consumoXRegion.consumo() / consumoXRegion.poblacion();
             if (consumoXPersona < menorConsumo) {
                 menorConsumo = consumoXPersona;
-                menorconsuRegion = DataRegion.nombreRegion();
+                menorconsuRegion = consumoXRegion.nombre();
             }
         }
         return menorconsuRegion;
     }
 
-    public String HallarRegionConMayorConsuXPersona()
+    public String hallarRegionConMayorConsuXPersona()
     {
-        List<DataRegion> data = this.dataRegionRepository.findAllGrades();
+        List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
         float consumoXPersona, mayorConsumo = 0;
         String mayorconsuRegion = "";
-        for (var DataRegion : data) {
-            consumoXPersona = DataRegion.consumoXRegion() / DataRegion.poblacionRegion();
+        for (var consumoXRegion : consumoXRegionList) {
+            consumoXPersona = consumoXRegion.consumo() / consumoXRegion.poblacion();
             if (consumoXPersona > mayorConsumo){
                 mayorConsumo = consumoXPersona;
-                mayorconsuRegion = DataRegion.nombreRegion();
+                mayorconsuRegion = consumoXRegion.nombre();
             }
         }
         return mayorconsuRegion;
