@@ -1,6 +1,10 @@
 package org.emmanuel_numar_acceso_agua.service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+
+import org.emmanuel_numar_acceso_agua.excepcion.ConsumoNoEncontradoExcepcion;
 import org.emmanuel_numar_acceso_agua.model.consumoXRegion;
 import org.emmanuel_numar_acceso_agua.repository.consumoXRegionRepository;
 import org.slf4j.Logger;
@@ -14,30 +18,34 @@ public class AccesoAlAguaRecordServiceImpl implements AccesoAlAguaRecordService 
     private final consumoXRegionRepository consumoXRegionRepository;
 
     public AccesoAlAguaRecordServiceImpl(consumoXRegionRepository consumoXRegionRepository) {
-        this.consumoXRegionRepository = consumoXRegionRepository;
+        {
+            this.consumoXRegionRepository = consumoXRegionRepository;
+        }
     }
 
     @Override
     public void mostrarNombreRegion() {
         List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
-        for (var consumoXRegion : consumoXRegionList ) {
-            System.out.println(consumoXRegion.nombre());
-        }
+
+        consumoXRegionList.stream()
+                .map(consumoXRegion::nombre)
+                .forEach(System.out::println);
     }
-    public int poblacionColombia(){
+
+
+    public int poblacionColombia() {
         List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
         int sumaPoblacion = 0;
-        for (var consumoXRegion : consumoXRegionList){
+        for (var consumoXRegion : consumoXRegionList) {
             sumaPoblacion += consumoXRegion.poblacion();
         }
         return sumaPoblacion;
     }
 
-    public double consumoAguaColombia()
-    {
+    public double consumoAguaColombia() {
         List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
         double sumaConsumo = 0;
-        for (var consumoXRegion : consumoXRegionList){
+        for (var consumoXRegion : consumoXRegionList) {
             sumaConsumo += consumoXRegion.consumo();
         }
         return sumaConsumo;
@@ -45,27 +53,34 @@ public class AccesoAlAguaRecordServiceImpl implements AccesoAlAguaRecordService 
 
     public double hallarPromConsPersonaNacional() {
         double promedioPersona;
-        promedioPersona = consumoAguaColombia()/poblacionColombia();
+        promedioPersona = consumoAguaColombia() / poblacionColombia();
 
         return promedioPersona;
     }
 
-    public String hallarRegionConMenorAccesoAlAgua()
-    {
+    public String hallarRegionConMenorAccesoAlAgua() {
         List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
-        double aux = 999999999;
-        String menosAcceso = "";
-        for (var consumoXRegion : consumoXRegionList ) {
-            if (consumoXRegion.consumo() < aux){
-                aux = consumoXRegion.consumo();
-                menosAcceso = consumoXRegion.nombre();
-            }
-        }
-        return menosAcceso;
+
+        Optional<String> menosAcceso = consumoXRegionList.stream()
+                .reduce((region1, region2) -> region1.consumo() < region2.consumo() ? region1 : region2)
+                .map(consumoXRegion::nombre);
+
+        return menosAcceso.orElse("");
     }
 
-    public void hallarConsumoPersonaXRegion()
-    {
+    @Override
+    public consumoXRegion getconsumoXRegion(String nombre) throws ConsumoNoEncontradoExcepcion {
+        Optional<consumoXRegion> consumoXRegionOptional = this.consumoXRegionRepository.getconsumoXRegion( nombre );
+
+        if( consumoXRegionOptional.isEmpty() ){
+            logger.error( "No se encontró una region con ese nombre {}", nombre );
+            throw new ConsumoNoEncontradoExcepcion(nombre);
+        }
+
+        return consumoXRegionOptional.get();
+    }
+
+    public void hallarConsumoPersonaXRegion() {
         List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
         float consumoXPersona;
         for (var consumoXRegion : consumoXRegionList) {
@@ -75,34 +90,30 @@ public class AccesoAlAguaRecordServiceImpl implements AccesoAlAguaRecordService 
         }
     }
 
-    public String hallarRegionConMenorConsuXPersona()
-    {
+    public String hallarRegionConMenorConsuXPersona() {
         List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
-        float consumoXPersona, menorConsumo = 999999999;
-        String menorconsuRegion = "";
-        for (var consumoXRegion : consumoXRegionList) {
-            consumoXPersona = consumoXRegion.consumo() / consumoXRegion.poblacion();
-            if (consumoXPersona < menorConsumo) {
-                menorConsumo = consumoXPersona;
-                menorconsuRegion = consumoXRegion.nombre();
-            }
-        }
-        return menorconsuRegion;
+
+        Optional<String> menorconsuRegion = consumoXRegionList.stream()
+                .min(Comparator.comparingDouble(region -> region.consumo() / region.poblacion()))
+                .map(consumoXRegion::nombre);
+
+        return menorconsuRegion.orElse("");
     }
 
-    public String hallarRegionConMayorConsuXPersona()
-    {
+
+    public String hallarRegionConMayorConsuXPersona() {
         List<consumoXRegion> consumoXRegionList = this.consumoXRegionRepository.findAllData();
-        float consumoXPersona, mayorConsumo = 0;
-        String mayorconsuRegion = "";
-        for (var consumoXRegion : consumoXRegionList) {
-            consumoXPersona = consumoXRegion.consumo() / consumoXRegion.poblacion();
-            if (consumoXPersona > mayorConsumo){
-                mayorConsumo = consumoXPersona;
-                mayorconsuRegion = consumoXRegion.nombre();
-            }
-        }
-        return mayorconsuRegion;
+
+        Optional<String> mayorconsuRegion = consumoXRegionList.stream()
+                .max(Comparator.comparingDouble(consumoXRegion -> consumoXRegion.consumo() / consumoXRegion.poblacion()))
+                .map(consumoXRegion -> consumoXRegion.nombre());
+
+        return mayorconsuRegion.orElse("");
     }
 
+    public consumoXRegion addconsumoXRegion(consumoXRegion newconsumoXRegion) {
+        logger.info("Agregando una nueva región");
+        return this.consumoXRegionRepository.addconsumoXRegion(newconsumoXRegion);
+
+    }
 }

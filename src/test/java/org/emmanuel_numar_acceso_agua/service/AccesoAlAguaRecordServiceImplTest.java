@@ -2,7 +2,7 @@ package org.emmanuel_numar_acceso_agua.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.emmanuel_numar_acceso_agua.repository.consumoXRegionRepositoryImpl;
+import org.emmanuel_numar_acceso_agua.repository.consumoXRegionInMemomyRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ class AccesoAlAguaRecordServiceImplTest {
 
   @BeforeEach
   void setUp() {
-    this.accesoAlAguaRecordService = new AccesoAlAguaRecordServiceImpl(new consumoXRegionRepositoryImpl());
+    this.accesoAlAguaRecordService = new AccesoAlAguaRecordServiceImpl(new consumoXRegionInMemomyRepositoryImpl());
   }
 
 
@@ -22,7 +22,7 @@ class AccesoAlAguaRecordServiceImplTest {
     Integer poblacion = this.accesoAlAguaRecordService.poblacionColombia();
 
     assertNotNull(poblacion); // Se verifica que la poblacion no sea nulo
-    assertEquals(52712323, poblacion); // Se verifica que la poblacion sea  = 52712323
+    assertEquals(50712323, poblacion); // Se verifica que la poblacion sea  = 50712323
   }
 
   @Test
@@ -41,7 +41,7 @@ class AccesoAlAguaRecordServiceImplTest {
     Double consumo = this.accesoAlAguaRecordService.consumoAguaColombia();
 
     assertNotNull(consumo); // Se verifica que el consumo no sea nulo
-    assertEquals(2.215006E8, consumo); // Se verifica que la suma sea (consumo) = 2.215006E8
+    assertEquals(2.015006E8, consumo); // Se verifica que la suma sea (consumo) = 2.015006E8
   }
 
   @Test
@@ -49,7 +49,7 @@ class AccesoAlAguaRecordServiceImplTest {
     Double promedio = this.accesoAlAguaRecordService.hallarPromConsPersonaNacional();
 
     assertNotNull(promedio); // Se verifica que el consumo promedio no sea nulo
-    assertEquals(4.202064856826742, promedio); // Se verifica que el promedio sea igual a  = 4.202064856826742
+    assertEquals(3.9734050439771806, promedio); // Se verifica que el promedio sea igual a  = 3.9734050439771806
   }
 
   @Test
@@ -73,6 +73,6 @@ class AccesoAlAguaRecordServiceImplTest {
     String consumo = this.accesoAlAguaRecordService.hallarRegionConMayorConsuXPersona();
 
     assertNotNull(consumo); // Se verifica que el consumo no sea nulo
-    assertEquals("Orinoquía", consumo); // Se verifica que la region con menor consumo sea = "Orinoquía
+    assertEquals("Pacífica", consumo); // Se verifica que la region con menor consumo sea = "Pacífica"
   }
 }
