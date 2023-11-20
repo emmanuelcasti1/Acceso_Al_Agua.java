@@ -1,0 +1,35 @@
+
+
+body {
+    background-color: #fff8a4;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+p {
+    font-family: verdana;
+    font-size: 20px;
+}
+
+table{
+    background-color: green;
+    margin-bottom: 50px;
+}
+
+
+input[type=text] {
+    width: 100%;
+}
+
+input[type=submit] {
+    height: 40px;
+    background-color: blue;
+    color: white;
+}
+/*Particular*/
+.tabla-principal{
+    background-color: yellow;
+}

@@ -1,0 +1,23 @@
+table{
+    border: blue ;
+}
+
+thead{
+    background-color: deeppink;
+}
+
+
+.table-1{
+    border: darkgreen 3px solid;
+    border-collapse: collapse;
+}
+
+.table-1 tr td{
+    border: darkgreen 3px solid;
+    border-collapse: collapse;
+}
+
+.table-1 thead{
+    background-color: coral;
+    border: darkgreen 3px;
+}
