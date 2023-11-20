@@ -111,9 +111,13 @@ public class AccesoAlAguaRecordServiceImpl implements AccesoAlAguaRecordService 
         return mayorconsuRegion.orElse("");
     }
 
-    public consumoXRegion addconsumoXRegion(consumoXRegion newconsumoXRegion) {
-        logger.info("Agregando una nueva región");
-        return this.consumoXRegionRepository.addconsumoXRegion(newconsumoXRegion);
-
+    @Override
+    public List<consumoXRegion> listAllConsumos() {
+        return this.consumoXRegionRepository.findAllData();
     }
+
+    public consumoXRegion addconsumoXRegion(consumoXRegion newconsumoXRegion) {
+        return this.consumoXRegionRepository.addconsumoXRegion( newconsumoXRegion );
+    }
+
 }

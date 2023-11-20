@@ -13,5 +13,5 @@ public interface consumoXRegionRepository {
 
   Optional<consumoXRegion> getconsumoXRegion(String Region);
 
-  consumoXRegion addconsumoXRegion(consumoXRegion newConsumo);
+  consumoXRegion addconsumoXRegion(consumoXRegion newconsumoXRegion);
 }

@@ -2,21 +2,24 @@ package org.emmanuel_numar_acceso_agua;
 
 import org.emmanuel_numar_acceso_agua.excepcion.ConsumoNoEncontradoExcepcion;
 import org.emmanuel_numar_acceso_agua.model.consumoXRegion;
+import org.emmanuel_numar_acceso_agua.repository.ConsumoXRegionUsingFileRepositoryImpl;
 import org.emmanuel_numar_acceso_agua.repository.consumoXRegionInMemomyRepositoryImpl;
 import org.emmanuel_numar_acceso_agua.service.AccesoAlAguaRecordService;
 import org.emmanuel_numar_acceso_agua.service.AccesoAlAguaRecordServiceImpl;
 
 import java.text.MessageFormat;
 import java.time.LocalDate;
+import java.util.List;
 
 public class ApplicationRunner {
   public static void main(String[] args) {
 
     AccesoAlAguaRecordService accesoAlAguaRecordService =
-        new AccesoAlAguaRecordServiceImpl(new consumoXRegionInMemomyRepositoryImpl());
+            new AccesoAlAguaRecordServiceImpl(new ConsumoXRegionUsingFileRepositoryImpl());
 
     System.out.println("\nLas regiones de Colombia antes de ingresar Orinoquía son: ");
-    accesoAlAguaRecordService.mostrarNombreRegion();
+    List<consumoXRegion> listAllConsumos =  accesoAlAguaRecordService.listAllConsumos();
+    listAllConsumos.forEach( System.out::println );
 
     consumoXRegion consumo = new consumoXRegion( "Orinoquía",20000000F, 2000000 );
     accesoAlAguaRecordService.addconsumoXRegion( consumo );
