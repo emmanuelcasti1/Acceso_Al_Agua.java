@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class ConsumoController {
     AccesoAlAguaRecordService accesoAlAguaRecordService = new AccesoAlAguaRecordServiceImpl(new ConsumoXRegionUsingFileRepositoryImpl());
-    @RequestMapping
+    @GetMapping
     public List<consumoXRegion> listConsumos(){
 
         System.out.println("listando estadísticas");
@@ -25,7 +25,7 @@ public class ConsumoController {
         return consumoXRegionList;
     }
 
-    @RequestMapping
+    @PostMapping
     public ResponseEntity<consumoXRegion> addconsumoXRegion(@RequestBody consumoXRegion newconsumoXRegion){
         System.out.println("Agregando consumo");
         consumoXRegion ConsumoXRegion = accesoAlAguaRecordService.addconsumoXRegion(newconsumoXRegion );
